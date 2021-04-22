@@ -25,9 +25,15 @@ class Task extends CI_controller{
 		$crud->field_type('priority','dropdown',
             array('high' => 'High', 'medium' => 'Medium','low' => 'Low'));
 		$crud->set_field_upload('attachment','assets/uploads/tasks');
+		$crud->add_action('SubTask', '', 'task/subtask', 'fas fa-bars');
 		$output = $crud->render();
 
 		$this->load->view('listtask',$output); 
+	}
+
+	public function subtask()
+	{
+		$this->load->view('subtask');
 	}
 }
 ?>
