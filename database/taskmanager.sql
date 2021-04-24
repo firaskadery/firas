@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2021 at 04:04 PM
+-- Generation Time: Apr 24, 2021 at 01:20 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -78,6 +78,29 @@ INSERT INTO `projects` (`id`, `title`, `description`, `leadby`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subtasks`
+--
+
+CREATE TABLE `subtasks` (
+  `title` varchar(255) NOT NULL,
+  `done` int(2) NOT NULL,
+  `task_id` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `subtasks`
+--
+
+INSERT INTO `subtasks` (`title`, `done`, `task_id`) VALUES
+('item2', 1, 64),
+('item3', 1, 64),
+('item4', 1, 64),
+('item5', 1, 64),
+('item6', 1, 64);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tasks`
 --
 
@@ -120,6 +143,13 @@ ALTER TABLE `projects`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `subtasks`
+--
+ALTER TABLE `subtasks`
+  ADD PRIMARY KEY (`title`),
+  ADD KEY `task_id` (`task_id`);
+
+--
 -- Indexes for table `tasks`
 --
 ALTER TABLE `tasks`
@@ -152,6 +182,12 @@ ALTER TABLE `tasks`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `subtasks`
+--
+ALTER TABLE `subtasks`
+  ADD CONSTRAINT `subtasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`);
 
 --
 -- Constraints for table `tasks`
