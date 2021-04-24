@@ -3,55 +3,29 @@
 <head>
   <title>Subtask</title>
 	<?php include 'toppage.php'; ?>
+	<script type="text/javascript">
+		function addtitle() {
+			  var x = document.getElementById("title").value;
+			  $('#list').append("<li class='list-group-item'>"+ x +"<label style='padding-left:20px;' name='"+ x +"'><input type='checkbox' name='check[]' value='"+ x +"'></label>");
+
+			}
+	</script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 	<?php 
 		include 'sidebar.php';
-
-  		if (isset($_POST['add'])) 
-  		{
-    		$subtitle = $_POST['subtitle'];
-
-			$array = array();
-
-			//ADD YOUR NEW ELEMENT TO THE ARRAY
-			$array = array_push( $array, $subtitle);
-
-			//store the new serialized (converted to string) array
-			$_SESSION['my_array'] = serialize( $array );
-
-			if ( isset($_SESSION['my_array']) ) {
-
-    		//grab the serialized (string version) of the array, and convert it back to an array
-
-    		$my_array = unserialize( $_SESSION['my_array'] ); //holds [0] => "el1", [1] => "el2"
-													
-													}
-  		}
 	?>
-	<form action="" method="post">
-	<input type="text" name="subtitle">
-	<input name="add" type="submit" value="add" />
-	</form>
-	<div class="form-group">
-		<ul class="list-group list-group-flush">
-			<?php 
-			if (isset($_POST['add'])) 
-  			{
-  			?>
-            <li class="list-group-item">
-            <?php echo $_SESSION['my_array']; ?>
-            <label class="checkbox">
-            <input type="checkbox" />
-            <span class="default"></span>
-            </label>
-            </li>
-			<?php
-			}
-			?>
-		</table>
+	<form method="post" action = "<?php echo base_url()."Task/savesubtasks"; ?>">
+	<div class="col-sm-6">
+		<input id="title" type="text" name="subtitle">
+        <a href="javascript:addtitle();" class="btn btn-success"><span>Add</span></a>
+    
+		<ul class="list-group list-group-flush" id="list"></ul>
 	</div>
-	<input name="save" type="submit" value="save" />
+	<div class="col-sm-6">
+		<input name="save" class="btn btn-success" type="submit" value="save"/>
+	</div>
+	</form>
 	<?php include 'footer.php'; ?>
   </div>
 </body>

@@ -1,6 +1,11 @@
 <?php
 class Task_model extends CI_model{
 
+	function multisave($formArray)
+	{
+		$this->db->insert('subtasks',$formArray);
+	}
+
 	function getnbtask()
 	{
 		return $this->db->count_all('tasks');
