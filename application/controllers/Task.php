@@ -31,12 +31,9 @@ class Task extends CI_controller{
 		$this->load->view('listtask',$output); 
 	}
 
-	public function subtask()
+	public function subtask($task_id)
 	{
-		$currentURL = current_url();
-		$str = explode("/", $currentURL);
-		$data = array();
-		$data['task_id'] = $str[6];
+		$data['task_id'] = $task_id;
 		$this->load->view('subtask',$data);
 	}
 
