@@ -6,8 +6,9 @@
 	<script type="text/javascript">
 		function addtitle() {
 			  var x = document.getElementById("title").value;
-			  $('#list').append("<li class='list-group-item'>"+ x +"<label style='padding-left:20px;' name='"+ x +"'><input type='checkbox' name='check[]' value='"+ x +"'></label>");
-
+			  if(x != ''){
+			  $('#list').append("<li class='list-group-item'><label>"+ x +"</label><input type='hidden' name='checkbox[]' value='"+ x +"'/><input type='checkbox' name='check[]' value='"+ x +"' style='margin-left:20px;'>");
+			  				}
 			}
 	</script>
 </head>
@@ -16,14 +17,15 @@
 		include 'sidebar.php';
 	?>
 	<form method="post" action = "<?php echo base_url()."Task/savesubtasks"; ?>">
+		<input type="hidden" name="task_id" value="<?php echo $task_id; ?>">
 	<div class="col-sm-6">
-		<input id="title" type="text" name="subtitle">
+		<input id="title" type="text" name="subtitle" >
         <a href="javascript:addtitle();" class="btn btn-success"><span>Add</span></a>
     
 		<ul class="list-group list-group-flush" id="list"></ul>
 	</div>
 	<div class="col-sm-6">
-		<input name="save" class="btn btn-success" type="submit" value="save"/>
+		<input id="savesub" name="save" class="btn btn-success" type="submit" value="save"/>
 	</div>
 	</form>
 	<?php include 'footer.php'; ?>

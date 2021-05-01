@@ -33,18 +33,35 @@ class Task extends CI_controller{
 
 	public function subtask()
 	{
-		$this->load->view('subtask');
+		$currentURL = current_url();
+		$str = explode("/", $currentURL);
+		$data = array();
+		$data['task_id'] = $str[6];
+		$this->load->view('subtask',$data);
 	}
 
 	public function savesubtasks()
 	{
 		$this->load->model('Task_model');
-		$checkbox = $this->input->post('check[]');
+		$checkbox = $this->input->post('checkbox[]');
+		$check = $this->input->post('check[]');
+		$task_id = $this->input->post('task_id');
 		for($i=0;$i<count($checkbox);$i++){
 			$formArray = array();
 			$formArray['title'] = $checkbox[$i];
-			$formArray['done'] = '1';
-			$formArray['task_id'] = '64';
+			for($j=0;$j<count($check);$j++)
+			{
+				if($checkbox[$i] == $check[$j])
+				{
+				$formArray['done'] = '1';
+				break;
+				}
+				else
+				{
+				$formArray['done'] = '0';	
+				}
+			}
+			$formArray['task_id'] = $task_id;
 			$this->Task_model->multisave($formArray);
 		}
 		redirect(base_url().'task/tasks');
