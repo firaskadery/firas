@@ -34,32 +34,54 @@ class Task extends CI_controller{
 	public function subtask($task_id)
 	{
 		$data['task_id'] = $task_id;
+
+		$this->load->model('Task_model');
+		$data['subtasks'] = $this->Task_model->getsubtasks($task_id);
+
 		$this->load->view('subtask',$data);
 	}
 
 	public function savesubtasks()
 	{
 		$this->load->model('Task_model');
-		$checkbox = $this->input->post('checkbox[]');
-		$check = $this->input->post('check[]');
+		$titles = $this->input->post('titles');
+		$check = $this->input->post('check');
 		$task_id = $this->input->post('task_id');
-		for($i=0;$i<count($checkbox);$i++){
+		;
+		for($i=0;$i<count($titles);$i++){
+			
 			$formArray = array();
-			$formArray['title'] = $checkbox[$i];
-			for($j=0;$j<count($check);$j++)
+			$formArray['title'] = $titles[$i];
+			$formArray['added_by'] = $this->session->userdata('name');
+			$formArray['added_date'] = date('Y-m-d');
+
+			if($this->Task_model->getsubtask($task_id,$titles[$i]) != 0)
 			{
-				if($checkbox[$i] == $check[$j])
+				for($j=0;$j<count($check);$j++)
 				{
-				$formArray['done'] = '1';
-				break;
+					$formArray['done'] = '0';
+					if($titles[$i] == $check[$j])
+					{
+					$formArray['done'] = '1';
+					break;
+					}
 				}
-				else
-				{
-				$formArray['done'] = '0';	
-				}
+				$this->Task_model->updatesubtask($task_id,$titles[$i],$formArray);
 			}
-			$formArray['task_id'] = $task_id;
-			$this->Task_model->multisave($formArray);
+			else
+			{
+				for($j=0;$j<count($check);$j++)
+				{
+					$formArray['done'] = '0';
+					if($titles[$i] == $check[$j])
+					{
+					$formArray['done'] = '1';
+					break;
+					}
+				}
+				$formArray['task_id'] = $task_id;
+				$this->Task_model->savesubtask($formArray);
+			}
 		}
 		redirect(base_url().'task/tasks');
 	}

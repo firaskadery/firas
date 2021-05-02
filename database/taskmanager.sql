@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2021 at 01:20 PM
+-- Generation Time: May 02, 2021 at 11:36 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -82,21 +82,22 @@ INSERT INTO `projects` (`id`, `title`, `description`, `leadby`) VALUES
 --
 
 CREATE TABLE `subtasks` (
+  `id` int(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `done` int(2) NOT NULL,
-  `task_id` int(50) NOT NULL
+  `task_id` int(50) NOT NULL,
+  `added_by` varchar(255) NOT NULL,
+  `added_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `subtasks`
 --
 
-INSERT INTO `subtasks` (`title`, `done`, `task_id`) VALUES
-('item2', 1, 64),
-('item3', 1, 64),
-('item4', 1, 64),
-('item5', 1, 64),
-('item6', 1, 64);
+INSERT INTO `subtasks` (`id`, `title`, `done`, `task_id`, `added_by`, `added_date`) VALUES
+(12, 'tes1', 1, 65, 'firas', '2021-05-02'),
+(13, 'test2', 0, 65, 'firas', '2021-05-02'),
+(14, 'test3', 1, 65, 'firas', '2021-05-02');
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,7 @@ ALTER TABLE `projects`
 -- Indexes for table `subtasks`
 --
 ALTER TABLE `subtasks`
-  ADD PRIMARY KEY (`title`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `task_id` (`task_id`);
 
 --
@@ -172,6 +173,12 @@ ALTER TABLE `employees`
 --
 ALTER TABLE `projects`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `subtasks`
+--
+ALTER TABLE `subtasks`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tasks`

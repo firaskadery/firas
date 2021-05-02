@@ -1,9 +1,31 @@
 <?php
 class Task_model extends CI_model{
 
-	function multisave($formArray)
+	function savesubtask($formArray)
 	{
 		$this->db->insert('subtasks',$formArray);
+	}
+
+	function getsubtasks($task_id)
+	{
+		$this->db->select('*');
+		$this->db->from('subtasks');
+		$this->db->where('task_id',$task_id);
+		return $subtasks = $this->db->get()->result_array();
+	}
+
+	function getsubtask($task_id,$title)
+	{
+		$this->db->where('task_id',$task_id);
+		$this->db->where('title',$title);
+		return $this->db->count_all_results('subtasks');
+	}
+
+	function updatesubtask($task_id,$title,$formArray)
+	{
+		$this->db->where('title',$title);
+		$this->db->where('task_id',$task_id);
+		$this->db->update('subtasks',$formArray);
 	}
 
 	function getnbtask()
