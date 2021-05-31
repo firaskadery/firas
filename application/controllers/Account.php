@@ -3,6 +3,7 @@ class Account extends CI_controller{
 
 	private function logged_in()
 	{
+		$this->load->model('Notification_model');
 		if($this->session->userdata('login') != 'true')
 		{
 			redirect(base_url());

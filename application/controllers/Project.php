@@ -10,6 +10,7 @@ class Project extends CI_controller{
 			redirect(base_url());
 		}
 		$this->load->model('Employee_model');
+		$this->load->model('Notification_model');
 		$name = $this->session->userdata('name');
 		$user = $this->Employee_model->getuser($name);
 		if($user['ismanager'] != '1')

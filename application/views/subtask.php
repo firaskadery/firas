@@ -7,11 +7,22 @@
 		function addtitle() {
 			  var x = $("#title").val();
 			  if(x != ''){
-			  $('#list').append("<li class='list-group-item'><label>"+ x +"</label><input type='hidden' name='titles[]' value='"+ x +"'/><input type='checkbox' name='check[]' value='"+ x +"' style='margin-left:20px;'>");
+			  $('.subtable').append("<tr><td>"+ x +"</td><input type='hidden' name='titles[]' value='"+ x +"'/><td><input type='checkbox' name='check[]' value='"+ x +"'></td><td><a href='deleteRow(this)'><i class='fa fa-minus-circle' style='color:red;'></i></a></td></tr>");
 			  $("#title").val('');
 			  				}
 			}
 	</script>
+	<style type="text/css">
+		.subtable{
+				  margin: 5%;
+				  border: 0;
+				  width: 30%;
+				  text-align: center;
+				}
+		tr td{
+			padding: 4%;
+		}
+	</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 	<?php 
@@ -23,18 +34,18 @@
 		<input id="title" type="text" name="subtitle" style="height: 30px;" placeholder="  enter title for subtask...">
         <a href="javascript:addtitle();" class="btn btn-primary"><span>Add</span></a>
     
-		<ul class="list-group list-group-flush" id="list">
+		<table class="subtable">
 			<?php 
 			if($subtasks != '')
 			{
 				foreach ($subtasks as $subtask) { ?>
 
-					<li class='list-group-item'><label><?php echo $subtask['title']; ?></label><input type='hidden' name='titles[]' value='<?php echo $subtask['title']; ?>'/><input type='checkbox' name='check[]' value='<?php echo $subtask['title']; ?>' style='margin-left:20px;'  <?php if($subtask['done'] == '1')echo " checked";?> >
+					<tr><td><?php echo $subtask['title']; ?></td><input type='hidden' name='titles[]' value='<?php echo $subtask['title']; ?>'/><td><input type='checkbox' name='check[]' value='<?php echo $subtask['title']; ?>' <?php if($subtask['done'] == '1')echo " checked";?> ></td><td ><a onclick="$(this).parent().parent().remove();" ><i class='fa fa-minus-circle' style='color:red;'></i></a></td></tr>
  
 			<?php	}
 			}
 			?>
-		</ul>
+		</table>
 	</div>
 	<div class="col-sm-6">
 		<input id="savesub" name="save" class="btn btn-success" type="submit" value="save"/>

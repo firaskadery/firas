@@ -6,6 +6,12 @@ class Task_model extends CI_model{
 		$this->db->insert('subtasks',$formArray);
 	}
 
+	function deletesubtask($task_id)
+	{
+		$this->db->where('task_id',$task_id);
+		$this->db->delete('subtasks');
+	}
+
 	function getsubtasks($task_id)
 	{
 		$this->db->select('*');
@@ -14,12 +20,12 @@ class Task_model extends CI_model{
 		return $subtasks = $this->db->get()->result_array();
 	}
 
-	function getsubtask($task_id,$title)
+	/*function getsubtask($task_id,$title)
 	{
 		$this->db->where('task_id',$task_id);
 		$this->db->where('title',$title);
 		return $this->db->count_all_results('subtasks');
-	}
+	}*/
 
 	function updatesubtask($task_id,$title,$formArray)
 	{

@@ -89,6 +89,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url().'notification/new';?>" class="nav-link <?php if($url['2'] == 'notification') echo "active"; ?>">
+              <i class="fa fa-bell" style="font-size:24px"></i>
+              <p>
+                Notification
+              </p>
+            </a>
+          </li>
           <?php } ?>
           <li class="nav-item <?php if($url['2'] == 'task') echo "menu-open"; ?>">
             <a href="#" class="nav-link <?php if($url['2'] == 'task') echo "active"; ?>">
@@ -114,21 +122,14 @@
               </li>
             </ul>
           </li>
-          <?php
-          if($this->session->userdata('ismanager') == '1')
-                {
-          ?>
           <li class="nav-item">
             <a href="<?php echo base_url().'statistics/statistic';?>" class="nav-link <?php if($url['2'] == 'statistics') echo "active"; ?>">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Statistics
+                Dashboard
               </p>
             </a>
           </li>
-          <?php
-                }
-          ?>
           <li class="nav-item">
             <a href="<?php echo base_url().'account/profile';?>" class="nav-link <?php if($url['3'] == 'profile') echo "active"; ?>">
               <i class="nav-icon fas fa-user-alt"></i>
@@ -152,4 +153,36 @@
         <!-- Info boxes -->
         <div class="row">
     <div class="table-wrapper">
+      <?php
+      $this->load->model('Employee_model');
+      $name = $this->session->userdata('name');
+      $user = $this->Employee_model->getuser($name);
+      $this->load->model('Notification_model');
+      $alert = $this->Notification_model->getalert();
+      if(!empty($alert)) { foreach($alert as $a) { 
+      if($user['ismanager'] != '1' && ($a['employee_id'] == '0' || $a['employee_id'] ==$user['id']))
+      {
+        if($a['status'] == 'high')
+        {
+      ?>
+        <div class="alert alert-danger" role="alert">
+        <?php echo $a['text']; ?>
+        <a class="close" href="<?php echo base_url().'task/drop/'.$a['id'];?>">
+        <span aria-hidden="true">&times;</span>
+        </a>
+        </div>
+        <?php
+        }else
+          { ?>
+            <div class="alert alert-info" role="alert">
+            <?php echo $a['text']; ?>
+            <a class="close" href="<?php echo base_url().'task/drop/'.$a['id'];?>">
+            <span aria-hidden="true">&times;</span>
+            </a>
+            </div>
+      <?php
+           }
+      }
+    }}
+      ?>
       

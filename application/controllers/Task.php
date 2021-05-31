@@ -8,7 +8,10 @@ class Task extends CI_controller{
 		{
 			redirect(base_url());
 		}
+		$this->load->model('Employee_model');
+		$this->load->model('Notification_model');
 		$this->load->library('grocery_CRUD');
+
 	}
 
 	public function tasks()
@@ -48,6 +51,8 @@ class Task extends CI_controller{
 		$check = $this->input->post('check');
 		$task_id = $this->input->post('task_id');
 		;
+		$this->Task_model->deletesubtask($task_id);
+		//insert
 		for($i=0;$i<count($titles);$i++){
 			
 			$formArray = array();
@@ -55,21 +60,6 @@ class Task extends CI_controller{
 			$formArray['added_by'] = $this->session->userdata('name');
 			$formArray['added_date'] = date('Y-m-d');
 
-			if($this->Task_model->getsubtask($task_id,$titles[$i]) != 0)
-			{
-				for($j=0;$j<count($check);$j++)
-				{
-					$formArray['done'] = '0';
-					if($titles[$i] == $check[$j])
-					{
-					$formArray['done'] = '1';
-					break;
-					}
-				}
-				$this->Task_model->updatesubtask($task_id,$titles[$i],$formArray);
-			}
-			else
-			{
 				for($j=0;$j<count($check);$j++)
 				{
 					$formArray['done'] = '0';
@@ -82,8 +72,13 @@ class Task extends CI_controller{
 				$formArray['task_id'] = $task_id;
 				$this->Task_model->savesubtask($formArray);
 			}
-		}
 		redirect(base_url().'task/tasks');
+	}
+
+	function drop($id)
+	{
+		$this->Notification_model->drop($id);
+		redirect(base_url());
 	}
 }
 ?>

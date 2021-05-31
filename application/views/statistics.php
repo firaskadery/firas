@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Statistics</title>
+  <title>Dashboard</title>
 	<?php include 'toppage.php'; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -99,6 +99,10 @@
                  </td><td>
                    <select name="employee_id" class="form-control">
                     <option value="" selected>Employees</option>
+                    <?php
+                      if($user['ismanager'] != '0')
+                      {
+                    ?>
                     <option value="all">All</option>
                     <?php
                     if(!empty($employees)) { foreach($employees as $employee) { 
@@ -106,6 +110,7 @@
                     <option value="<?php echo $employee['id']; ?>" <?php if($na == $employee['id'])echo " selected"; ?>><?php echo $employee['name']; ?></option>
                       <?php
                     }}
+                    }
                     ?>
                    </select>
                  </td><td>
