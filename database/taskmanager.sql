@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2021 at 11:36 PM
+-- Generation Time: May 31, 2021 at 02:07 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -54,6 +54,26 @@ INSERT INTO `employees` (`id`, `name`, `email`, `address`, `phone`, `ismanager`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` int(255) NOT NULL,
+  `employee_id` int(255) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `employee_id`, `text`, `status`) VALUES
+(4, 6, 'task3 not done', 'high');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `projects`
 --
 
@@ -95,9 +115,9 @@ CREATE TABLE `subtasks` (
 --
 
 INSERT INTO `subtasks` (`id`, `title`, `done`, `task_id`, `added_by`, `added_date`) VALUES
-(12, 'tes1', 1, 65, 'firas', '2021-05-02'),
-(13, 'test2', 0, 65, 'firas', '2021-05-02'),
-(14, 'test3', 1, 65, 'firas', '2021-05-02');
+(42, 'a', 0, 64, 'firas', '2021-05-29'),
+(43, 'b', 0, 64, 'firas', '2021-05-29'),
+(44, 'c', 1, 64, 'firas', '2021-05-29');
 
 -- --------------------------------------------------------
 
@@ -124,7 +144,9 @@ INSERT INTO `tasks` (`id`, `description`, `employee_id`, `status`, `priority`, `
 (64, 'task1', 6, 'hold', 'high', '2021-03-17', 'Lighthouse.jpg', 6),
 (65, 'task2', 6, 'hold', 'medium', '2021-03-27', '3c793-tulips.jpg', 6),
 (66, 'task5', 6, 'In Progress', 'low', '2021-03-20', 'Jellyfish.jpg', 18),
-(67, 'task3', 6, 'Done', 'low', '2021-03-19', '7a743-penguins.jpg', 4);
+(67, 'task3', 6, 'Done', 'low', '2021-03-19', '7a743-penguins.jpg', 4),
+(70, 'newtask', 14, 'In Progress', 'low', '2021-05-31', '0b6be-chrysanthemum.jpg', 18),
+(71, 'task10', 14, 'hold', 'medium', '2021-05-26', '5823f-penguins.jpg', 6);
 
 --
 -- Indexes for dumped tables
@@ -136,6 +158,12 @@ INSERT INTO `tasks` (`id`, `description`, `employee_id`, `status`, `priority`, `
 ALTER TABLE `employees`
   ADD PRIMARY KEY (`id`),
   ADD KEY `name` (`name`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `projects`
@@ -169,6 +197,12 @@ ALTER TABLE `employees`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
@@ -178,13 +212,13 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `subtasks`
 --
 ALTER TABLE `subtasks`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- Constraints for dumped tables
