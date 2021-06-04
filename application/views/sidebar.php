@@ -90,7 +90,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="<?php echo base_url().'notification/new';?>" class="nav-link <?php if($url['2'] == 'notification') echo "active"; ?>">
+            <a href="<?php echo base_url().'notification/notification';?>" class="nav-link <?php if($url['2'] == 'notification') echo "active"; ?>">
               <i class="fa fa-bell" style="font-size:24px"></i>
               <p>
                 Notification

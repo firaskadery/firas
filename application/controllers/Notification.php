@@ -10,6 +10,7 @@ class Notification extends CI_controller{
 		}
 		$this->load->model('Employee_model');
 		$this->load->model('Notification_model');
+		$this->load->library('grocery_CRUD');
 		$name = $this->session->userdata('name');
 		$user = $this->Employee_model->getuser($name);
 		if($user['ismanager'] != '1')
@@ -18,7 +19,22 @@ class Notification extends CI_controller{
 		}
 	}
 
-	function new()
+	function notification()
+	{
+		$crud = new grocery_CRUD();
+		$crud->set_table('notifications');
+		$crud->display_as('employee_id','Employee');
+		//$crud->set_relation('employee_id','employees','name');
+
+		$crud->set_relation_n_n('employee_id','notifications','employees', 'note_id', 'id', 'name','priority');
+
+		$crud->field_type('priority','dropdown',
+            array('high' => 'High', 'low' => 'Low'));
+		$output = $crud->render();
+
+		$this->load->view('notification',$output);
+	}
+	/*function new()
 	{
 		$this->load->model('Employee_model');
 		$data = array();
@@ -35,6 +51,6 @@ class Notification extends CI_controller{
 		$formArray['status'] = $this->input->post('status');
 		$this->Notification_model->add($formArray);
 		redirect(base_url());
-	}
+	}*/
 
 }
