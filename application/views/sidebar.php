@@ -160,7 +160,7 @@
       $this->load->model('Notification_model');
       $alert = $this->Notification_model->getalert();
       if(!empty($alert)) { foreach($alert as $a) { 
-      if($user['ismanager'] != '1' && $a['employee_id'] ==$user['id'])
+      if($a['employee_id'] ==$user['id'])
       {
          $not = $this->Notification_model->getnot($a['notification_id']);
         if($not['priority'] == 'high')
