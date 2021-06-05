@@ -160,14 +160,15 @@
       $this->load->model('Notification_model');
       $alert = $this->Notification_model->getalert();
       if(!empty($alert)) { foreach($alert as $a) { 
-      if($user['ismanager'] != '1' && ($a['employee_id'] == '0' || $a['employee_id'] ==$user['id']))
+      if($user['ismanager'] != '1' && $a['employee_id'] ==$user['id'])
       {
-        if($a['status'] == 'high')
+         $not = $this->Notification_model->getnot($a['notification_id']);
+        if($not['priority'] == 'high')
         {
       ?>
         <div class="alert alert-danger" role="alert">
-        <?php echo $a['text']; ?>
-        <a class="close" href="<?php echo base_url().'task/drop/'.$a['id'];?>">
+        <?php echo $not['text']; ?>
+        <a class="close" href="<?php echo base_url().'task/drop/'.$user['id'];?>">
         <span aria-hidden="true">&times;</span>
         </a>
         </div>
@@ -175,8 +176,8 @@
         }else
           { ?>
             <div class="alert alert-info" role="alert">
-            <?php echo $a['text']; ?>
-            <a class="close" href="<?php echo base_url().'task/drop/'.$a['id'];?>">
+            <?php echo $not['text']; ?>
+            <a class="close" href="<?php echo base_url().'task/drop/'.$user['id'];?>">
             <span aria-hidden="true">&times;</span>
             </a>
             </div>

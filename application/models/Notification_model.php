@@ -1,20 +1,25 @@
 <?php
 class Notification_model extends CI_model{
 
-	function add($formArray)
+	/*function add($formArray)
 	{
 		$this->db->insert('notifications',$formArray);
-	}
+	}*/
 
 	function getalert()
 	{
-		return $alert = $this->db->get('notifications')->result_array();
+		return $alert = $this->db->get('employee_notifications')->result_array();
+	}
+	function getnot($notification_id)
+	{
+		$this->db->where('id',$notification_id);
+		return $not = $this->db->get('notifications')->row_array();
 	}
 
-	function drop($id)
+	function drop($employee_id)
 	{
-		$this->db->where('id',$id);
-		$this->db->delete('notifications');
+		$this->db->where('employee_id',$employee_id);
+		$this->db->delete('employee_notifications');
 	}
 }
 ?>
