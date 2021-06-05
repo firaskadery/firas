@@ -26,7 +26,7 @@ class Notification extends CI_controller{
 		$crud->display_as('employee_id','Employee');
 		//$crud->set_relation('employee_id','employees','name');
 
-		$crud->set_relation_n_n('employee_id','notifications','employees', 'note_id', 'id', 'name','priority');
+		$crud->set_relation_n_n('employee_id','notifications','employees', 'note_id', 'employee_id', 'name');
 
 		$crud->field_type('priority','dropdown',
             array('high' => 'High', 'low' => 'Low'));
