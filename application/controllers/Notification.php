@@ -11,16 +11,16 @@ class Notification extends CI_controller{
 		$this->load->model('Employee_model');
 		$this->load->model('Notification_model');
 		$this->load->library('grocery_CRUD');
+	}
+
+	function notification()
+	{
 		$name = $this->session->userdata('name');
 		$user = $this->Employee_model->getuser($name);
 		if($user['ismanager'] != '1')
 		{
 			redirect(base_url().'task/tasks');
 		}
-	}
-
-	function notification()
-	{
 		$crud = new grocery_CRUD();
 		$crud->set_table('notifications');
 		$crud->display_as('employee_id','Employee');
@@ -28,27 +28,26 @@ class Notification extends CI_controller{
 
 		$crud->field_type('priority','dropdown',
             array('high' => 'High', 'low' => 'Low'));
+		$crud->field_type('readed_by','hidden');
 		$output = $crud->render();
 
 		$this->load->view('notification',$output);
 	}
-	/*function new()
-	{
-		$this->load->model('Employee_model');
-		$data = array();
-		$data['employees'] = $this->Employee_model->all();
-		$this->load->view('notification',$data);
-	}
 
-	function add()
+	function readed()
 	{
-		$this->load->model('Notification_model');
-		$formArray = array();
-		$formArray['employee_id'] = $this->input->post('employee_id');
-		$formArray['text'] = $this->input->post('text');
-		$formArray['status'] = $this->input->post('status');
-		$this->Notification_model->add($formArray);
+		$id = $this->uri->segment(3);
+		$notification_id = $this->uri->segment(4);
+		$name = $this->session->userdata('name');
+		$this->Notification_model->readed($id,$notification_id);
+		$readed = $this->Notification_model->getreaded($notification_id);
+		$n = "";
+		if(!empty($readed)) { foreach($readed as $r) {
+			$emp = $this->Employee_model->getEmployee($r['employee_id']);
+			$n = $emp['name'].','.$n;
+			$this->Notification_model->readed_by($r['notification_id'],$n);
+		}}
 		redirect(base_url());
-	}*/
+	}
 
 }

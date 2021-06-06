@@ -16,10 +16,22 @@ class Notification_model extends CI_model{
 		return $not = $this->db->get('notifications')->row_array();
 	}
 
-	function drop($employee_id)
+	function readed($employee_id,$notification_id)
 	{
+		$this->db->where('notification_id',$notification_id);
 		$this->db->where('employee_id',$employee_id);
-		$this->db->delete('employee_notifications');
+		$this->db->update('employee_notifications', array('readed' => 'read'));
+	}
+	function getreaded($notification_id)
+	{
+		$this->db->where('notification_id',$notification_id);
+		$this->db->where('readed','read');
+		return $readed = $this->db->get('employee_notifications')->result_array();
+	}
+	function readed_by($notification_id,$name)
+	{
+		$this->db->where('id',$notification_id);
+		$this->db->update('notifications', array('readed_by' => $name));
 	}
 }
 ?>

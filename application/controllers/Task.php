@@ -74,11 +74,5 @@ class Task extends CI_controller{
 			}
 		redirect(base_url().'task/tasks');
 	}
-
-	function drop($id)
-	{
-		$this->Notification_model->drop($id);
-		redirect(base_url());
-	}
 }
 ?>
