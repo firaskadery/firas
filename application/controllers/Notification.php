@@ -50,7 +50,7 @@ class Notification extends CI_controller{
 			$n = $emp['name'].','.$n;
 			$this->Notification_model->readed_by($r['notification_id'],$n);
 		}}
-		}
+		}else{echo "error";}
 	}
 
 }
