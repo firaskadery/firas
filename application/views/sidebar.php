@@ -144,7 +144,22 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-
+  <script type="text/javascript">
+    function read(id,notification_id)
+    {
+      $.ajax({
+    url: "/taskmanager/notification/readed",
+    method: 'post',
+    data: {id: id, notification_id: notification_id},
+    success: function(){
+      location.reload();
+    },
+    error: function(){
+      alert("error");
+    },
+});
+    }
+  </script>
     <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Main content -->
@@ -168,7 +183,7 @@
       ?>
         <div class="alert alert-danger" role="alert">
         <?php echo $not['text']; ?>
-        <a class="close" href="<?php echo base_url().'notification/readed/'.$user['id'].'/'.$not['id'];?>">
+        <a class="close" href="javascript:read(<?php echo $user['id'].','.$not['id']; ?>);">
         <span aria-hidden="true">&times;</span>
         </a>
         </div>
@@ -177,7 +192,7 @@
           { ?>
             <div class="alert alert-info" role="alert">
             <?php echo $not['text']; ?>
-            <a class="close" href="<?php echo base_url().'notification/readed/'.$user['id'].'/'.$not['id'];?>">
+            <a class="close" href="javascript:read(<?php echo $user['id'].','.$not['id']; ?>);">
             <span aria-hidden="true">&times;</span>
             </a>
             </div>

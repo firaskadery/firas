@@ -36,8 +36,8 @@ class Notification extends CI_controller{
 
 	function readed()
 	{
-		$id = $this->uri->segment(3);
-		$notification_id = $this->uri->segment(4);
+		$id = $this->input->post('id');
+		$notification_id = $this->input->post('notification_id');
 		$name = $this->session->userdata('name');
 		$this->Notification_model->readed($id,$notification_id);
 		$readed = $this->Notification_model->getreaded($notification_id);
@@ -47,7 +47,6 @@ class Notification extends CI_controller{
 			$n = $emp['name'].','.$n;
 			$this->Notification_model->readed_by($r['notification_id'],$n);
 		}}
-		redirect(base_url());
 	}
 
 }

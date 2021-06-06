@@ -42,6 +42,7 @@
 <script src="<?php echo base_url().'assets/dist/js/demo.js';?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?php echo base_url().'assets/dist/js/pages/dashboard2.js';?>"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <?php 
 if(isset($css_files)){
