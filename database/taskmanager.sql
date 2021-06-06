@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2021 at 02:07 PM
+-- Generation Time: Jun 06, 2021 at 09:46 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -54,6 +54,29 @@ INSERT INTO `employees` (`id`, `name`, `email`, `address`, `phone`, `ismanager`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `employee_notifications`
+--
+
+CREATE TABLE `employee_notifications` (
+  `id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `notification_id` int(11) NOT NULL,
+  `readed` varchar(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `employee_notifications`
+--
+
+INSERT INTO `employee_notifications` (`id`, `employee_id`, `notification_id`, `readed`) VALUES
+(61, 42, 37, 'read'),
+(62, 41, 37, 'read'),
+(63, 42, 38, 'read'),
+(64, 41, 38, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `notifications`
 --
 
@@ -61,15 +84,17 @@ CREATE TABLE `notifications` (
   `id` int(255) NOT NULL,
   `employee_id` int(255) NOT NULL,
   `text` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `priority` varchar(255) NOT NULL,
+  `readed_by` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `notifications`
 --
 
-INSERT INTO `notifications` (`id`, `employee_id`, `text`, `status`) VALUES
-(4, 6, 'task3 not done', 'high');
+INSERT INTO `notifications` (`id`, `employee_id`, `text`, `priority`, `readed_by`) VALUES
+(37, 0, 'alert', 'high', 'firas,feras,'),
+(38, 0, 'jkyukukyuk', 'low', 'feras,');
 
 -- --------------------------------------------------------
 
@@ -160,6 +185,12 @@ ALTER TABLE `employees`
   ADD KEY `name` (`name`);
 
 --
+-- Indexes for table `employee_notifications`
+--
+ALTER TABLE `employee_notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
@@ -197,10 +228,16 @@ ALTER TABLE `employees`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
+-- AUTO_INCREMENT for table `employee_notifications`
+--
+ALTER TABLE `employee_notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `projects`
