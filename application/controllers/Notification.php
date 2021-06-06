@@ -39,6 +39,9 @@ class Notification extends CI_controller{
 		$id = $this->input->post('id');
 		$notification_id = $this->input->post('notification_id');
 		$name = $this->session->userdata('name');
+		$user = $this->Employee_model->getuser($name);
+		if($id == $user['id'])
+		{
 		$this->Notification_model->readed($id,$notification_id);
 		$readed = $this->Notification_model->getreaded($notification_id);
 		$n = "";
@@ -47,6 +50,7 @@ class Notification extends CI_controller{
 			$n = $emp['name'].','.$n;
 			$this->Notification_model->readed_by($r['notification_id'],$n);
 		}}
+		}
 	}
 
 }

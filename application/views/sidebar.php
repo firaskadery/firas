@@ -147,12 +147,6 @@
   <script type="text/javascript">
     function read(id,notification_id)
     {
-      <?php
-      $name = $this->session->userdata('name');
-      $user = $this->Employee_model->getuser($name);
-      ?>
-      if(id == <?php echo $user['id']; ?>)
-      {
       $.ajax({
     url: "/taskmanager/notification/readed",
     method: 'post',
@@ -164,7 +158,6 @@
       alert("error");
     },
 });
-    }else{alert("error");}
   }
   </script>
     <!-- Content Wrapper. Contains page content -->
