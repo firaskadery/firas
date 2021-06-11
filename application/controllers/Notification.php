@@ -22,13 +22,14 @@ class Notification extends CI_controller{
 			redirect(base_url().'task/tasks');
 		}
 		$crud = new grocery_CRUD();
+		$crud->columns('employee_id','text','priority','readed_by');
 		$crud->set_table('notifications');
 		$crud->display_as('employee_id','Employee');
 		$crud->set_relation_n_n('employee_id','employee_notifications','employees', 'notification_id', 'employee_id', 'name');
-
 		$crud->field_type('priority','dropdown',
             array('high' => 'High', 'low' => 'Low'));
-		$crud->field_type('readed_by','hidden');
+		$crud->callback_column('readed_by',array($this, 'employee_readed'));
+		//$crud->field_type('readed_by','hidden');
 		$output = $crud->render();
 
 		$this->load->view('notification',$output);
@@ -43,14 +44,19 @@ class Notification extends CI_controller{
 		if($id == $user['id'])
 		{
 		$this->Notification_model->readed($id,$notification_id);
-		$readed = $this->Notification_model->getreaded($notification_id);
-		$n = "";
-		if(!empty($readed)) { foreach($readed as $r) {
-			$emp = $this->Employee_model->getEmployee($r['employee_id']);
-			$n = $emp['name'].','.$n;
-			$this->Notification_model->readed_by($r['notification_id'],$n);
-		}}
 		}else{echo "error";}
+	}
+
+	function employee_readed($value = '10', $row)
+	{
+		$name = $this->Notification_model->getreaded($row->id);
+		$n = "";
+		foreach($name as $na)
+		{
+			$emp = $this->Employee_model->getEmployee($na['employee_id']);
+			$n = $emp['name'].','.$n;
+		}
+		return $n;
 	}
 
 }

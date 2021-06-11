@@ -174,8 +174,8 @@
       $user = $this->Employee_model->getuser($name);
       $this->load->model('Notification_model');
       $alert = $this->Notification_model->getalert();
-      if(!empty($alert)) { foreach($alert as $a) { 
-        $not = $this->Notification_model->getnot($a['notification_id']);
+      foreach($alert as $a) { 
+      $not = $this->Notification_model->getnot($a['notification_id']);
       if($a['employee_id'] ==$user['id'] && $a['readed'] != 'read')
       {
         if($not['priority'] == 'high')
@@ -197,7 +197,7 @@
             </a>
             </div>
       <?php
-           }
+           
       }
     }}
       ?>
