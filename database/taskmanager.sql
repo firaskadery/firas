@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2021 at 09:46 PM
+-- Generation Time: Jun 11, 2021 at 04:31 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -69,10 +69,11 @@ CREATE TABLE `employee_notifications` (
 --
 
 INSERT INTO `employee_notifications` (`id`, `employee_id`, `notification_id`, `readed`) VALUES
-(61, 42, 37, 'read'),
-(62, 41, 37, 'read'),
-(63, 42, 38, 'read'),
-(64, 41, 38, NULL);
+(80, 42, 47, 'read'),
+(81, 41, 47, 'read'),
+(82, 42, 48, 'read'),
+(83, 41, 48, 'read'),
+(84, 6, 48, NULL);
 
 -- --------------------------------------------------------
 
@@ -84,17 +85,16 @@ CREATE TABLE `notifications` (
   `id` int(255) NOT NULL,
   `employee_id` int(255) NOT NULL,
   `text` varchar(255) NOT NULL,
-  `priority` varchar(255) NOT NULL,
-  `readed_by` varchar(100) NOT NULL
+  `priority` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `notifications`
 --
 
-INSERT INTO `notifications` (`id`, `employee_id`, `text`, `priority`, `readed_by`) VALUES
-(37, 0, 'alert', 'high', 'firas,feras,'),
-(38, 0, 'jkyukukyuk', 'low', 'feras,');
+INSERT INTO `notifications` (`id`, `employee_id`, `text`, `priority`) VALUES
+(47, 0, 'alert', 'high'),
+(48, 0, 'tetetetetete', 'low');
 
 -- --------------------------------------------------------
 
@@ -231,13 +231,13 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `employee_notifications`
 --
 ALTER TABLE `employee_notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `projects`
