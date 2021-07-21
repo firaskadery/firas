@@ -5,7 +5,6 @@
 	<?php include 'toppage.php'; ?>
 </head>
 <body>
-
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <?php include 'sidebar.php'; ?>
     <form method="post" name="addemp" action="<?php echo base_url().'employee/add'; ?>">

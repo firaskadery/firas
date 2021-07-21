@@ -24,9 +24,11 @@ class Notification_model extends CI_model{
 	}
 	function getreaded($notification_id)
 	{
+		$this->db->select('name');
 		$this->db->where('readed','read');
 		$this->db->where('notification_id',$notification_id);
-		$this->db->from('employee_notifications');
+		$this->db->from('employees');
+		$this->db->join('employee_notifications','employees.id = employee_notifications.employee_id');
 		return $readed = $this->db->get()->result_array();
 	}
 	function readed_by($notification_id,$name)

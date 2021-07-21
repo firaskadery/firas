@@ -152,7 +152,7 @@
     method: 'post',
     data: {id: id, notification_id: notification_id},
     success: function(){
-      location.reload();
+      document.getElementById(notification_id).style.visibility = "hidden";
     },
     error: function(){
       alert("error");
@@ -178,27 +178,14 @@
       $not = $this->Notification_model->getnot($a['notification_id']);
       if($a['employee_id'] ==$user['id'] && $a['readed'] != 'read')
       {
-        if($not['priority'] == 'high')
-        {
       ?>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-<?php if($not['priority'] == 'high'){ echo 'danger';}else{echo 'info';} ?>" role="alert" id="<?php echo $a['notification_id']; ?>">
         <?php echo $not['text']; ?>
         <a class="close" href="javascript:read(<?php echo $user['id'].','.$not['id']; ?>);">
         <span aria-hidden="true">&times;</span>
         </a>
         </div>
-        <?php
-        }else
-          { ?>
-            <div class="alert alert-info" role="alert">
-            <?php echo $not['text']; ?>
-            <a class="close" href="javascript:read(<?php echo $user['id'].','.$not['id']; ?>);">
-            <span aria-hidden="true">&times;</span>
-            </a>
-            </div>
       <?php
-           
-      }
     }}
       ?>
       

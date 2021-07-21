@@ -49,12 +49,12 @@ class Notification extends CI_controller{
 
 	function employee_readed($value = '10', $row)
 	{
-		$name = $this->Notification_model->getreaded($row->id);
+		$emp = $this->Notification_model->getreaded($row->id);
 		$n = "";
-		foreach($name as $na)
+
+		foreach($emp as $e)
 		{
-			$emp = $this->Employee_model->getEmployee($na['employee_id']);
-			$n = $emp['name'].','.$n;
+			$n = $e['name'].','.$n;
 		}
 		return $n;
 	}
