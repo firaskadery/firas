@@ -126,7 +126,7 @@
             <a href="<?php echo base_url().'statistics/statistic';?>" class="nav-link <?php if($url['2'] == 'statistics') echo "active"; ?>">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Dashboard
+                Statistics
               </p>
             </a>
           </li>
