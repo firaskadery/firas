@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Add Employee</title>
+	<title>Add New Employee</title>
 	<?php include 'toppage.php'; ?>
 </head>
 <body>
